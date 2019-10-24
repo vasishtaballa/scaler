@@ -1,6 +1,7 @@
 package com.academy.homework.oct04;
 
 // Question: https://www.interviewbit.com/problems/single-element-in-a-sorted-array/
+
 public class SingleElementInSortedArray {
 
 	public static void main(String[] args) {
