@@ -8,7 +8,7 @@ public class LargestRectangleInHistogram {
 
 	public static void main(String[] args) {
 		LargestRectangleInHistogram obj = new LargestRectangleInHistogram();
-		int[] array = { 6, 2, 5, 4, 5, 1, 6 };
+		int[] array = { 5, 1, 1 };
 		System.out.println(obj.largestRectangleArea(array));
 	}
 
