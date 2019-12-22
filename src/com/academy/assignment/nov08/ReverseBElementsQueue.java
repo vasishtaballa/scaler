@@ -4,6 +4,8 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 
+// Question: https://www.interviewbit.com/problems/reversing-the-first-b-elements-of-queue/ 
+
 public class ReverseBElementsQueue {
 
 	public static void main(String[] args) {
