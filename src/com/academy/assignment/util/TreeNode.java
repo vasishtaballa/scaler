@@ -9,7 +9,7 @@ public class TreeNode extends BaseNode {
 
 	}
 
-	TreeNode(int x) {
+	public TreeNode(int x) {
 		val = x;
 		left = null;
 		right = null;
