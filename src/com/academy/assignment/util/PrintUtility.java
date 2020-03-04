@@ -8,7 +8,7 @@ public class PrintUtility {
 			System.out.print(item + " ");
 	}
 
-	public static void printArrayList(List<Object> list) {
+	public static void printArrayList(List<Integer> list) {
 		for (Object item : list)
 			System.out.print(item + " ");
 	}
