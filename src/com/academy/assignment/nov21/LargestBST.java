@@ -8,53 +8,53 @@ public class LargestBST {
 
 	public static void main(String[] args) {
 		LargestBST obj = new LargestBST();
-		String[] array = { "10", "5", "15", "1", "8", "7" };
+		String[] array = { "1", "2", "3", "-1", "-1", "4", "-1", "-1", "5", "-1", "-1" };
 		TreeNode root = (TreeNode) TreeUtility.createTree(array, new TreeNode());
-		System.out.println(obj.solve(root));
+		TreeUtility.printInorder(root);
+		System.out.println(obj.solve(root).ans);
 	}
 
-	public int solve(TreeNode A) {
-		Value value = new Value();
-		largestBSTUtil(A, value, value, value, value);
-		return value.maxSize;
-	}
-
-	private int largestBSTUtil(TreeNode root, Value max, Value min, Value isBst, Value maxSize) {
-		if (root == null) {
-			isBst.isBst = true;
-			return 0;
-		}
-		int leftSize = 0, rightSize = 0;
-		boolean leftFlag = false, rightFlag = false;
-		max.maximum = Integer.MIN_VALUE;
-		leftSize = largestBSTUtil(root.left, max, min, isBst, maxSize);
-		if (isBst.isBst && root.val > max.maximum)
-			leftFlag = true;
-		int minimumValue = min.minimum;
-		min.minimum = Integer.MAX_VALUE;
-		rightSize = largestBSTUtil(root.right, max, min, isBst, maxSize);
-		if (isBst.isBst && root.val < min.minimum)
-			rightFlag = true;
-		if (minimumValue < min.minimum)
-			min.minimum = minimumValue;
-		if (min.minimum > root.val)
-			min.minimum = root.val;
-		if (max.maximum < root.val)
-			max.maximum = root.val;
-		if (leftFlag && rightFlag) {
-			if (leftSize + rightSize + 1 > maxSize.maxSize)
-				maxSize.maxSize = leftSize + rightSize + 1;
-			return leftSize + rightSize + 1;
+	public Result solve(TreeNode A) {
+		if (A == null)
+			return new Result(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+		if (A.left == null && A.right == null)
+			return new Result(true, 1, A.val, A.val, 1);
+		Result left = solve(A.left);
+		Result right = solve(A.right);
+		Result result = new Result();
+		result.size = left.size + right.size + 1;
+		if (left.isBST && right.isBST && A.val > left.maximum && A.val < right.minimum) {
+			result.isBST = true;
+			result.minimum = Math.min(left.minimum, Math.min(right.minimum, A.val));
+			result.maximum = Math.max(right.maximum, Math.max(left.maximum, A.val));
+			result.ans = result.size;
+			return result;
 		} else {
-			isBst.isBst = false;
-			return 0;
+			result.isBST = false;
+			result.ans = Math.max(left.ans, right.ans);
+			return result;
 		}
 	}
 }
 
-class Value {
-	boolean isBst = false;
+class Result {
+	boolean isBST = false;
+	int ans = 0;
 	int minimum = Integer.MAX_VALUE;
 	int maximum = Integer.MIN_VALUE;
-	int maxSize = 0;
+	int size = 0;
+
+	public Result(boolean isBST, int ans, int minimum, int maximum, int size) {
+		super();
+		this.isBST = isBST;
+		this.ans = ans;
+		this.minimum = minimum;
+		this.maximum = maximum;
+		this.size = size;
+	}
+
+	public Result() {
+
+	}
+
 }
