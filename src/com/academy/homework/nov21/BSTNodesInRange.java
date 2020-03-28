@@ -1,7 +1,5 @@
 package com.academy.homework.nov21;
 
-import java.util.ArrayList;
-
 import com.academy.assignment.util.GeneralUtility;
 import com.academy.assignment.util.TreeNode;
 import com.academy.assignment.util.TreeUtility;
@@ -18,22 +16,14 @@ public class BSTNodesInRange {
 	}
 
 	public int solve(TreeNode A, int B, int C) {
-		ArrayList<Integer> nodes = new ArrayList<>();
-		getNodes(A, nodes);
-		int count = 0;
-		for (int i = 0; i < nodes.size(); i++) {
-			if (nodes.get(i) >= B && nodes.get(i) <= C)
-				count += 1;
-		}
-		return count;
-	}
-	
-	private void getNodes(TreeNode root, ArrayList<Integer> list) {
-		if (root == null)
-			return;
-		getNodes(root.left, list);
-		list.add(root.val);
-		getNodes(root.right, list);
+		if (A == null)
+			return 0;
+		if (A.val >= B && A.val <= C)
+			return 1 + solve(A.left, B, C) + solve(A.right, B, C);
+		else if (A.val < B)
+			return solve(A.right, B, C);
+		else
+			return solve(A.left, B, C);
 	}
 
 }
