@@ -1,5 +1,6 @@
 package com.academy.assignment.util;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -53,5 +54,19 @@ public class TreeUtility {
 		printInorder(node.left);
 		System.out.print(node.val + " ");
 		printInorder(node.right);
+	}
+
+	/**
+	 * This method returns ArrayList of in-order of any tree
+	 * 
+	 * @param root
+	 * @param list
+	 */
+	public static void getNodes(TreeNode root, ArrayList<Integer> list) {
+		if (root == null)
+			return;
+		getNodes(root.left, list);
+		list.add(root.val);
+		getNodes(root.right, list);
 	}
 }
