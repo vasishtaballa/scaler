@@ -11,16 +11,20 @@ public class LargestBST {
 		String[] array = { "1", "2", "3", "-1", "-1", "4", "-1", "-1", "5", "-1", "-1" };
 		TreeNode root = (TreeNode) TreeUtility.createTree(array, new TreeNode());
 		TreeUtility.printInorder(root);
-		System.out.println(obj.solve(root).ans);
+		System.out.println(obj.solve(root));
 	}
 
-	public Result solve(TreeNode A) {
+	public int solve(TreeNode A) {
+		return solveUtil(A).ans;
+	}
+
+	public Result solveUtil(TreeNode A) {
 		if (A == null)
 			return new Result(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
 		if (A.left == null && A.right == null)
 			return new Result(true, 1, A.val, A.val, 1);
-		Result left = solve(A.left);
-		Result right = solve(A.right);
+		Result left = solveUtil(A.left);
+		Result right = solveUtil(A.right);
 		Result result = new Result();
 		result.size = left.size + right.size + 1;
 		if (left.isBST && right.isBST && A.val > left.maximum && A.val < right.minimum) {
