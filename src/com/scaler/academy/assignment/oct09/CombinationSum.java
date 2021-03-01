@@ -1,6 +1,6 @@
 package com.scaler.academy.assignment.oct09;
 
-// Question: https://www.interviewbit.com/problems/combination-sum-ii/
+// Question: https://www.interviewbit.com/problems/combination-sum/
 
 import com.scaler.academy.assignment.util.ArrayUtils;
 
