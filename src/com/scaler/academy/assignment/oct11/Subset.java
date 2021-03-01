@@ -1,4 +1,4 @@
-package com.scaler.academy.assignment.oct09;
+package com.scaler.academy.assignment.oct11;
 
 // Question: https://www.interviewbit.com/problems/subset/
 
