@@ -12,4 +12,11 @@ public class ArrayUtils {
         return list;
     }
 
+    public static List<ArrayList<Integer>> getListFromMatrix(int[][] matrix) {
+        ArrayList<ArrayList<Integer>> matrixList = new ArrayList<>();
+        for (int[] row : matrix) {
+            matrixList.add((ArrayList<Integer>) getListFromArray(row));
+        }
+        return matrixList;
+    }
 }
