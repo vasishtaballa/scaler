@@ -10,12 +10,14 @@ public class UniquePathsIII {
 
     int count = 0;
     int[] start = null;
+    int zerosCount = 0;
 
     public static void main(String[] args) {
         UniquePathsIII obj = new UniquePathsIII();
         int[][] matrix = {
-                {0, 1},
-                {2, 0}
+                {1, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 2, -1}
         };
         System.out.println(obj.solve((ArrayList<ArrayList<Integer>>) ArrayUtils.getListFromMatrix(matrix)));
     }
@@ -28,25 +30,25 @@ public class UniquePathsIII {
     }
 
     private void solveUtil(ArrayList<ArrayList<Integer>> matrix, boolean[][] visitedMatrix, int xIdx, int yIdx) {
-        if (xIdx >= 0 && xIdx < matrix.size() && yIdx >= 0 && yIdx < matrix.get(0).size() && matrix.get(xIdx).get(yIdx) == 2 && areAllCellsVisited(matrix, visitedMatrix))
+        if (xIdx >= 0 && xIdx < matrix.size() && yIdx >= 0 && yIdx < matrix.get(0).size() && matrix.get(xIdx).get(yIdx) == 2 && zerosCount == -1)
             count++;
         if (isSafe(matrix, visitedMatrix, xIdx, yIdx)) {
             visitedMatrix[xIdx][yIdx] = true;
-        } else {
+            zerosCount--;
+        } else
             return;
-        }
         solveUtil(matrix, visitedMatrix, xIdx - 1, yIdx); // UP
         solveUtil(matrix, visitedMatrix, xIdx, yIdx + 1); // RIGHT
         solveUtil(matrix, visitedMatrix, xIdx + 1, yIdx); // DOWN
         solveUtil(matrix, visitedMatrix, xIdx, yIdx - 1); // LEFT
         visitedMatrix[xIdx][yIdx] = false;
+        zerosCount++;
     }
 
     private boolean isSafe(ArrayList<ArrayList<Integer>> matrix, boolean[][] visitedMatrix, int xIdx, int yIdx) {
         // Matrix overflow cases
-        if (xIdx < 0 || xIdx >= matrix.size() || yIdx < 0 || yIdx >= matrix.get(0).size()) {
+        if (xIdx < 0 || xIdx >= matrix.size() || yIdx < 0 || yIdx >= matrix.get(0).size())
             return false;
-        }
         // Blocker cells cases
         if (matrix.get(xIdx).get(yIdx) == -1)
             return false;
@@ -58,17 +60,6 @@ public class UniquePathsIII {
         return false;
     }
 
-    private boolean areAllCellsVisited(ArrayList<ArrayList<Integer>> matrix, boolean[][] visitedMatrix) {
-        int rows = visitedMatrix.length, cols = visitedMatrix[0].length;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (matrix.get(i).get(j) == 0 && !visitedMatrix[i][j])
-                    return false;
-            }
-        }
-        return true;
-    }
-
     private int[] getStartPoint(ArrayList<ArrayList<Integer>> list) {
         int[] start = new int[2];
         for (int i = 0; i < list.size(); i++) {
@@ -78,6 +69,8 @@ public class UniquePathsIII {
                     start[0] = i;
                     start[1] = j;
                 }
+                if (row.get(j) == 0)
+                    zerosCount++;
             }
         }
         return start;
