@@ -3,6 +3,7 @@ package com.scaler.academy.homework.oct14;
 // Question: https://www.interviewbit.com/problems/kth-permutation-sequence/
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class KthPermutationSequence {
@@ -15,16 +16,28 @@ public class KthPermutationSequence {
     }
 
     public String getPermutation(int A, int B) {
-        List<Integer> list = getInitList(A);
-        return getPermutationUtil(list, 0, B);
+        ArrayList<Integer> list = getInitList(A);
+        ArrayList<Integer> aux = new ArrayList<>();
+        HashSet<Integer> hashSet = new HashSet<>();
+        return getPermutationUtil(list, aux, 0, hashSet, B);
     }
 
-    private String getPermutationUtil(List<Integer> list, int index, int target) {
+    private String getPermutationUtil(ArrayList<Integer> list, ArrayList<Integer> aux, int index, HashSet<Integer> hashSet, int target) {
         if (index == list.size()) {
             globalTarget++;
+            if (globalTarget == target)
+                return getStringFrmList((List<Integer>) aux.clone());
         }
-        for (int i = index; i < list.size(); i++) {
-
+        for (int i = 0; i < list.size(); i++) {
+            if (!hashSet.contains(list.get(i))) {
+                hashSet.add(list.get(i));
+                aux.add(list.get(i));
+                String ans = getPermutationUtil(list, aux, index + 1, hashSet, target);
+                if (ans != null)
+                    return ans;
+                hashSet.remove(list.get(i));
+                aux.remove(aux.size() - 1);
+            }
         }
         return null;
     }
@@ -36,8 +49,8 @@ public class KthPermutationSequence {
         return sb.toString();
     }
 
-    private List<Integer> getInitList(int size) {
-        List<Integer> list = new ArrayList<>();
+    private ArrayList<Integer> getInitList(int size) {
+        ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < size; i++)
             list.add(i + 1);
         return list;
