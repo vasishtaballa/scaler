@@ -11,7 +11,7 @@ public class KthPermutationSequence {
 
     public static void main(String[] args) {
         KthPermutationSequence obj = new KthPermutationSequence();
-        System.out.println("Result: " + obj.getPermutation(3, 5));
+        System.out.println(obj.getPermutation(3, 5));
     }
 
     public String getPermutation(int A, int B) {
