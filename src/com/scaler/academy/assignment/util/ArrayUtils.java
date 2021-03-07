@@ -19,4 +19,18 @@ public class ArrayUtils {
         }
         return matrixList;
     }
+
+    public static ArrayList<ArrayList<Character>> getListFromMatrix(char[][] board) {
+        ArrayList<ArrayList<Character>> matrixList = new ArrayList<>();
+        for (char[] row : board)
+            matrixList.add((ArrayList<Character>) getListFromArray(row));
+        return matrixList;
+    }
+
+    private static List<Character> getListFromArray(char[] array) {
+        List<Character> list = new ArrayList<>();
+        for (char i : array)
+            list.add(i);
+        return list;
+    }
 }
