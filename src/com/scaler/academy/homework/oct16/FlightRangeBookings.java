@@ -7,6 +7,7 @@ import com.scaler.academy.assignment.util.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FlightRangeBookings {
 
     public static void main(String[] args) {
