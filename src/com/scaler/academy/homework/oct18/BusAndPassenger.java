@@ -4,22 +4,17 @@ package com.scaler.academy.homework.oct18;
 
 import com.scaler.academy.assignment.util.ArrayUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class BusAndPassenger {
 
     static class Item {
         public int data;
         public int index;
-        public int count;
 
-        public Item(int data, int index, int count) {
+        public Item(int data, int index) {
             this.data = data;
             this.index = index;
-            this.count = count;
         }
     }
 
@@ -42,23 +37,19 @@ public class BusAndPassenger {
         ArrayList<Item> items = new ArrayList<>(A.size());
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < A.size(); i++)
-            items.add(new Item(A.get(i), i, 0));
+            items.add(new Item(A.get(i), i));
         Collections.sort(items, new DataComparator());
         int type0 = 0;
+        Stack<Item> itemStack = new Stack<>();
         for (int i = 0; i < B.length(); i++) {
             char type = B.charAt(i);
             if (type == '0') {
+                itemStack.push(items.get(type0));
                 result.add(items.get(type0).index + 1);
-                items.get(type0).count++;
                 type0++;
             } else {
-                for (int j = items.size() - 1; j >= 0; j--) {
-                    if (items.get(j).count == 1) {
-                        result.add(items.get(j).index + 1);
-                        items.get(j).count++;
-                        break;
-                    }
-                }
+                Item top = itemStack.pop();
+                result.add(top.index + 1);
             }
         }
         return result;
