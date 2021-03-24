@@ -12,7 +12,7 @@ public class InversionCountInAnArray {
 
     public static void main(String[] args) {
         InversionCountInAnArray obj = new InversionCountInAnArray();
-        int[] array = {28, 18, 44, 49, 41, 14};
+        int[] array = {28, 18, 44, 49, 41, 15};
         System.out.println(obj.solve((ArrayList<Integer>) ArrayUtils.getListFromArray(array)));
     }
 
