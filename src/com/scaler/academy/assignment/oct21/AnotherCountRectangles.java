@@ -65,11 +65,20 @@ Explanation 2:
 public class AnotherCountRectangles {
     public static void main(String[] args) {
         AnotherCountRectangles obj = new AnotherCountRectangles();
-        int[] array = {1, 4, 4, 5, 5, 5, 6, 6, 11};
-        System.out.println(obj.solve((ArrayList<Integer>) ArrayUtils.getListFromArray(array), 5));
+        int[] array = {2, 3, 5, 6};
+        System.out.println(obj.solve((ArrayList<Integer>) ArrayUtils.getListFromArray(array), 12));
     }
 
     public int solve(ArrayList<Integer> A, int B) {
-        return 0;
+        int left = 0, right = A.size() - 1;
+        long count = 0, MOD_VALUE = 1000000007;
+        while (left < A.size() && right >= 0) {
+            if (1L * A.get(left) * A.get(right) < B) {
+                count = (count + right + 1) % MOD_VALUE;
+                left++;
+            } else
+                right--;
+        }
+        return (int) count;
     }
 }
