@@ -12,7 +12,6 @@ public class SubArrayWith0Sum {
     public static void main(String[] args) {
         SubArrayWith0Sum obj = new SubArrayWith0Sum();
         int[] array = {5, 17, -22, 11};
-        // 5 22 0 11
         System.out.println(obj.solve((ArrayList<Integer>) ArrayUtils.getListFromArray(array)));
     }
 
