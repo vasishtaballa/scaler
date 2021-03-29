@@ -27,9 +27,16 @@ public class ArrayUtils {
         return matrixList;
     }
 
-    private static List<Character> getListFromArray(char[] array) {
+    public static List<Character> getListFromArray(char[] array) {
         List<Character> list = new ArrayList<>();
         for (char i : array)
+            list.add(i);
+        return list;
+    }
+
+    public static List<String> getListFromArray(String[] array) {
+        List<String> list = new ArrayList<>();
+        for (String i : array)
             list.add(i);
         return list;
     }
