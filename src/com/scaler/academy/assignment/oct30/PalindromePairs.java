@@ -12,7 +12,7 @@ import java.util.Map;
 public class PalindromePairs {
     public static void main(String[] args) {
         PalindromePairs obj = new PalindromePairs();
-        String[] array = {"abcd", "dcba", "lls", "s", "sssll"};
+        String[] array = {"abcd", "dcba", "lls", "s", "sssll", "abc"};
         List<ArrayList<Integer>> result = obj.solve((ArrayList<String>) ArrayUtils.getListFromArray(array));
         for (ArrayList<Integer> list : result)
             System.out.println(list);
