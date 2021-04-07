@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public class PalindromePairs {
+
     public static void main(String[] args) {
         PalindromePairs obj = new PalindromePairs();
-        String[] array = {"abcd", "dcba", "lls", "s", "sssll", "abc"};
+        String[] array = {"abcd", "dcba", "lls", "s", "sssll"};
         List<ArrayList<Integer>> result = obj.solve((ArrayList<String>) ArrayUtils.getListFromArray(array));
         for (ArrayList<Integer> list : result)
             System.out.println(list);
@@ -25,18 +26,29 @@ public class PalindromePairs {
             map.put(A.get(i), i);
         for (int i = 0; i < A.size(); i++) {
             String string = A.get(i);
-            StringBuilder sb = new StringBuilder();
             for (int j = 0; j < string.length(); j++) {
-                sb.append(string.charAt(j));
-                StringBuilder reverse = new StringBuilder(sb);
-                reverse = reverse.reverse();
-                if (map.containsKey(reverse.toString())) {
-                    // reverse is present & now check if rest of the elements forms a palindrome.
-                    if (isRestPalindrome(string, j) && i != map.get(reverse.toString())) {
-                        ArrayList<Integer> pair = new ArrayList<>();
-                        pair.add(i);
-                        pair.add(map.get(reverse.toString()));
-                        result.add(pair);
+                String left = string.substring(0, j + 1);
+                String right = string.substring(j + 1);
+                if (isPalindrome(left, 0, left.length() - 1)) {
+                    String rightRev = new StringBuilder(right).reverse().toString();
+                    if (map.containsKey(rightRev)) {
+                        if (i != map.get(rightRev)) {
+                            ArrayList<Integer> pair = new ArrayList<>();
+                            pair.add(map.get(rightRev));
+                            pair.add(i);
+                            result.add(pair);
+                        }
+                    }
+                }
+                if (isPalindrome(right, 0, right.length() - 1)) {
+                    String leftRev = new StringBuilder(left).reverse().toString();
+                    if (map.containsKey(leftRev)) {
+                        if (i != map.get(leftRev)) {
+                            ArrayList<Integer> pair = new ArrayList<>();
+                            pair.add(i);
+                            pair.add(map.get(leftRev));
+                            result.add(pair);
+                        }
                     }
                 }
             }
@@ -45,8 +57,8 @@ public class PalindromePairs {
         return result;
     }
 
-    private boolean isRestPalindrome(String string, int from) {
-        for (int i = from, j = string.length() - 1; i <= string.length() / 2; i++, j--) {
+    private boolean isPalindrome(String string, int from, int end) {
+        for (int i = from, j = end; i <= j; i++, j--) {
             if (string.charAt(i) != string.charAt(j))
                 return false;
         }
