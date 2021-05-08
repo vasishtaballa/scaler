@@ -6,7 +6,7 @@ public class MakeStringPalindrome {
 
     public static void main(String[] args) {
         MakeStringPalindrome obj = new MakeStringPalindrome();
-        System.out.println(obj.solve("hqghumeaylnlfdxfi"));
+        System.out.println(obj.solve("babb"));
     }
 
     /*
@@ -14,6 +14,7 @@ public class MakeStringPalindrome {
     https://www.geeksforgeeks.org/kmp-algorithm-for-pattern-searching/
     https://www.youtube.com/watch?v=GTJr8OvyEVQ
 
+    Let's concat the reverse of the original string with some special character ($).
     We need to get largest suffix of the reversed string that matches the prefix of the original string. Because observe the below examples.
     Example1: madami -> If we want to make the string palindrome, since there is already a palindrome in the string, we just need to prepend 'i'
     in front. Ans: imadami -> 1 character
@@ -34,12 +35,38 @@ public class MakeStringPalindrome {
         StringBuilder input = new StringBuilder(A);
         StringBuilder inputConcatReverse = input.append("$").append(new StringBuilder(A).reverse());
         int[] lpsArray = getLPSArray(inputConcatReverse.toString());
-        return 0;
+        return A.length() - lpsArray[lpsArray.length - 1];
     }
 
     private int[] getLPSArray(String toString) {
         int[] lpsArray = new int[toString.length()];
-
+        char[] chars = toString.toCharArray();
+        lpsArray[0] = 0;
+        int i = 1, j = 0;
+        while (i < chars.length) {
+            if (chars[i] != chars[j]) {
+                while (true) {
+                    if (chars[i] == chars[j]) {
+                        lpsArray[i] = j + 1;
+                        j++;
+                        break;
+                    }
+                    if (j == 0) {
+                        if (chars[i] == chars[j])
+                            lpsArray[i] = j + 1;
+                        else
+                            lpsArray[i] = 0;
+                        break;
+                    }
+                    j = lpsArray[j - 1];
+                }
+                i++;
+            } else {
+                lpsArray[i] = j + 1;
+                i++;
+                j++;
+            }
+        }
         return lpsArray;
     }
 
