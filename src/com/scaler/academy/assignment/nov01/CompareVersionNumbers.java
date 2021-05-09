@@ -5,7 +5,7 @@ package com.scaler.academy.assignment.nov01;
 public class CompareVersionNumbers {
     public static void main(String[] args) {
         CompareVersionNumbers obj = new CompareVersionNumbers();
-        System.out.println(obj.compareVersion("4444371174137455", "5.168"));
+        System.out.println(obj.compareVersion("1", "1.0.1"));
     }
 
     public int compareVersion(String A, String B) {
@@ -27,7 +27,7 @@ public class CompareVersionNumbers {
             i++;
         }
         while (j < BTokens.length) {
-            int BValue = compareEachToken(BTokens[i]);
+            int BValue = compareEachToken(BTokens[j]);
             if (BValue != 0)
                 return -1;
             j++;
